@@ -5,6 +5,9 @@
     "react-navigation": "^4.4.4"
   },
   "name": "ripple",
+  "scripts": {
+    "start": "react-native start"
+  },
   "version": "1.0.0",
   "description": "음악 소통 애플리케이션 Ripple",
   "main": "index.js",
