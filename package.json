@@ -1,5 +1,14 @@
 {
   "dependencies": {
-    "react-native-cli": "^2.0.1"
-  }
+    "react-native": "^0.71.10",
+    "react-native-cli": "^2.0.1",
+    "react-navigation": "^4.4.4"
+  },
+  "name": "ripple",
+  "version": "1.0.0",
+  "description": "음악 소통 애플리케이션 Ripple",
+  "main": "index.js",
+  "repository": "https://github.com/NewDevs2/Ripple.git",
+  "author": "krapli441 <tlfqj1208@gmail.com>",
+  "license": "MIT"
 }
