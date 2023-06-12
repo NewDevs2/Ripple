@@ -5,20 +5,21 @@ FROM node:18.16.0
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     openjdk-11-jdk \
+    wget \
     unzip && \
     rm -rf /var/lib/apt/lists/*
 
-ENV ANDROID_SDK_ROOT=/opt/android-sdk-linux
-ENV PATH="${ANDROID_SDK_ROOT}/emulator:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/platform-tools:${PATH}"
+ENV ANDROID_HOME=/opt/android-sdk-linux
+ENV PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/emulator
 
-RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O /tmp/sdk-tools-linux.zip && \
-    mkdir -p ${ANDROID_SDK_ROOT} && \
-    unzip /tmp/sdk-tools-linux.zip -d ${ANDROID_SDK_ROOT} && \
-    rm /tmp/sdk-tools-linux.zip && \
-    echo y | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platform-tools" "emulator"
+# Download and install Android SDK
+RUN wget -O /tmp/sdk-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip && \
+    unzip /tmp/sdk-tools.zip -d $ANDROID_HOME/cmdline-tools && \
+    rm /tmp/sdk-tools.zip && \
+    yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "emulator"
 
 # Set up emulator
-RUN echo 'no' | avdmanager create avd -n emulator -k "system-images;android-30;google_apis;x86_64" -f
+RUN echo 'no' | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n emulator -k "system-images;android-30;google_apis;x86_64" -f
 
 # Working directory
 WORKDIR /app
