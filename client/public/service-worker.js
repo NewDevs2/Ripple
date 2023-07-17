@@ -18,3 +18,16 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
+// 푸시 알림
+self.addEventListener("push", (event) => {
+  const options = {
+    body: "푸시 알림 테스트",
+    icon: "/favicon.ico",
+    // 추가적인 옵션들...
+  };
+
+  event.waitUntil(
+    self.registration.showNotification("푸시 알림 제목", options)
+  );
+});
