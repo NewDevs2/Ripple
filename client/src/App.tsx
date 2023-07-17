@@ -16,17 +16,19 @@ const App: React.FC = () => {
     requestNotificationPermission();
   }, []);
   function handleNotificationClick() {
-    // 알림이 클릭되었을 때 수행할 동작을 정의합니다.
+    // 알림이 클릭되었을 때 수행할 동작을 여기서 작성한다.
     console.log("알림을 클릭했습니다.");
   }
 
   function sendNotification() {
     if ("Notification" in window && Notification.permission === "granted") {
-      const notification = new Notification("Ripple", {
-        body: "누군가 회원님의 트랙을 좋아합니다.",
-        icon: "/favicon.ico", // 알림 아이콘 경로
-      });
-      notification.addEventListener("click", handleNotificationClick);
+      setTimeout(() => {
+        const notification = new Notification("Ripple", {
+          body: "누군가 회원님의 트랙을 좋아합니다.",
+          icon: "/favicon.ico", // 알림 아이콘 경로를 지정.
+        });
+        notification.addEventListener("click", handleNotificationClick);
+      }, 3000);
     } else {
       console.log("알림 권한이 없습니다. 알림을 허용해주세요.");
     }
