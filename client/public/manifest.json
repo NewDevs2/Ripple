@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Ripple",
+  "name": "음악 공유 애플리케이션 Ripple",
   "icons": [
     {
       "src": "favicon.ico",
