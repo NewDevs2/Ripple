@@ -17,5 +17,5 @@
     "noImplicitAny": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "src/service-worker.js"]
 }

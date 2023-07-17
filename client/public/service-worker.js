@@ -1,7 +1,7 @@
-self.addEventListener("push", (event:PushEvent) => {
-  const options:NotificationOptions = {
+self.addEventListener("push", (event) => {
+  const options: NotificationOptions = {
     body: "푸시 알림 테스트",
-    icon: "/public/favicon.ico",
+    icon: "/favicon.ico",
   };
 
   event.waitUntil(
