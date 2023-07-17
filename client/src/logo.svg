@@ -1,12 +1,6 @@
 <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="192" height="192" rx="36" fill="url(#paint0_linear_101_483)"/>
+<rect width="192" height="192" rx="36" fill="#27A9FF"/>
 <circle cx="95.68" cy="96.32" r="31.52" stroke="white" stroke-width="8"/>
 <circle cx="95.68" cy="96.32" r="56.7" stroke="white" stroke-opacity="0.5" stroke-width="5"/>
 <circle cx="95.68" cy="96.32" r="75.26" stroke="white" stroke-opacity="0.2" stroke-width="5"/>
-<defs>
-<linearGradient id="paint0_linear_101_483" x1="192" y1="-1.00708e-05" x2="-145.92" y2="338.24" gradientUnits="userSpaceOnUse">
-<stop stop-color="#27A9FF"/>
-<stop offset="1" stop-color="#7FC8F8" stop-opacity="0"/>
-</linearGradient>
-</defs>
 </svg>
