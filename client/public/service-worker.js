@@ -1,11 +1,20 @@
+const CACHE_NAME = "Ripple";
+const urlsToCache = ["/"];
 self.addEventListener("install", (event) => {
-  console.log("Service Worker installed!");
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log("Opened cache");
+      return cache.addAll(urlsToCache);
+    })
+  );
 });
-
-self.addEventListener("activate", (event) => {
-  console.log("Service Worker activated!");
-});
-
 self.addEventListener("fetch", (event) => {
-  console.log("Fetch intercepted:", event.request.url);
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      if (response) {
+        return response;
+      }
+      return fetch(event.request);
+    })
+  );
 });
