@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>캐시 테스트</title>
+  </head>
+  <body>
+    <h1>이미지 캐싱 테스트</h1>
+    <img id="cachedImage" src="https://via.placeholder.com/300" alt="Image" />
+    <br />
+    <button onclick="loadImageFromCache()">캐시에서 이미지를 불러옴</button>
+  </body>
+  <script>
+    // 이미지 캐싱
+    function cacheImage() {
+      const image = new Image();
+      image.src = "https://via.placeholder.com/300";
+    }
+
+    // 캐시된 이미지 로드
+    function loadImageFromCache() {
+      const cachedImage = document.getElementById("cachedImage");
+      cachedImage.src = "https://via.placeholder.com/300"; // 이미 캐시되어있으므로 요청하지 않고 바로 로드됨
+    }
+
+    // 페이지 로드 시 이미지 캐싱
+    cacheImage();
+  </script>
+</html>
