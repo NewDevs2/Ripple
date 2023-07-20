@@ -5,6 +5,24 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
+// 파이어베이스 추가
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBgzJiuuT5_cYqMnbed8Hknuq8Wnpl0RxI",
+  authDomain: "rippletest-c2e34.firebaseapp.com",
+  projectId: "rippletest-c2e34",
+  storageBucket: "rippletest-c2e34.appspot.com",
+  messagingSenderId: "244048560120",
+  appId: "1:244048560120:web:a74444b9ec3e9326caa00d",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
