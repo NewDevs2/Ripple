@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 
 // 파이어베이스 추가
 import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
