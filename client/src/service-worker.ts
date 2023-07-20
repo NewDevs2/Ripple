@@ -1,5 +1,4 @@
 /// <reference lib="webworker" />
-/* eslint 비활성화 */
 
 // 이 서비스 워커는 직접 커스터마이징 할 수 있습니다.
 // 다음을 확인해보세요 : https://developers.google.com/web/tools/workbox/modules
