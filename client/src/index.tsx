@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 
 // 파이어베이스 추가
 import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging";
+import { getMessaging, getToken } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,6 +24,21 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
+getToken(messaging, {
+  vapidKey:
+    "BFo-kCR5AXHVPGdq92pZ-tmhraepYAXPXlm0FN-Nd2UE7Ws7MoEnfF_4d6JpbixW7lGhde5Vq6raG_PWrCrhpJM",
+})
+  .then((currentToken) => {
+    if (currentToken) {
+      console.log("FCM 토큰 : ", currentToken);
+      // 서버로 토큰을 전송하여 특정 사용자에게 푸시 알림을 보낼 수 있음
+    } else {
+      console.log("FCM 토큰을 가져오는데 실패함");
+    }
+  })
+  .catch((error) => {
+    console.error("FCM 토큰 요청 오류 : ", error);
+  });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
