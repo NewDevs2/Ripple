@@ -5,9 +5,11 @@ import React from "react";
 
 const Geolocation: React.FC = () => {
   return (
-    <div>
-      <h1>geolocation 위치 탐색</h1>
-    </div>
+    <>
+      <div>
+        <h1>geolocation 위치 탐색</h1>
+      </div>
+    </>
   );
 };
 
