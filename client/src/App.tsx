@@ -1,6 +1,11 @@
+// 리액트 라이브러리
 import React, { useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+
+// 컴포넌트
 import logo from "./logo.svg";
 import "./App.css";
+import Geolocation from "./geoloctaion";
 
 async function requestNotificationPermission() {
   if ("Notification" in window) {
@@ -35,15 +40,21 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <code>Ripple</code>.<br></br>
-          <button onClick={sendNotification}>푸시 알림 전송</button>
-        </p>
-      </header>
-    </div>
+    <>
+
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            <code>Ripple</code>.<br></br>
+            <button onClick={sendNotification}>푸시 알림 전송</button>
+            <Link to={"/geolocation"}>
+              <button>리플기능</button>
+            </Link>
+          </p>
+        </header>
+      </div>
+    </>
   );
 };
 

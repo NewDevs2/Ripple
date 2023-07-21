@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Geolocation from "./geoloctaion";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,6 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Routes>
+        <Route path="/geolocation" element={<Geolocation />} />
+      </Routes>
       <App />
     </BrowserRouter>
   </React.StrictMode>
