@@ -1,8 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
-
+import logo from './logo.svg';
 function App() {
+  axios.get('https://www.googleapis.com/youtube/v3/playlists', {
+  params: {
+    key: 'api key 였던 것',
+    part: 'snippet',
+    chart: 'mostPopular',
+    regionCode: 'KR',
+    maxResults: 10
+  }
+})
+.then(function (response) {
+  const playlists = response.data.items;
+  console.log(playlists);
+})
+.catch(function (error) {
+  console.log(error);
+});
   return (
     <div className="App">
       <header className="App-header">
