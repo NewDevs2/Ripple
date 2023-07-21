@@ -1,13 +1,17 @@
 // 리액트 라이브러리
 import React from "react";
+import "./geolocation.css";
 
 // 컴포넌트
 
 const Geolocation: React.FC = () => {
+  navigator.geolocation;
   return (
     <>
-      <div>
-        <h1>geolocation 위치 탐색</h1>
+      <div className="App">
+        <header className="App-header">
+          <div className="userPosition"></div>
+        </header>
       </div>
     </>
   );
