@@ -1,10 +1,10 @@
 import axios from 'axios';
 import './App.css';
-import logo from './logo.svg';
 function App() {
-  axios.get('https://www.googleapis.com/youtube/v3/playlists', {
+  axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
   params: {
-    key: 'api key 였던 것',
+    playlistId :'PLFgquLnL59alGJcdc0BEZJb2p7IgkL0Oe',
+    key: '발급 받은 API KEY',
     part: 'snippet',
     chart: 'mostPopular',
     regionCode: 'KR',
@@ -20,20 +20,6 @@ function App() {
 });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
     </div>
   );
 }
