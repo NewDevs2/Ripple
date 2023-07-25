@@ -5,8 +5,9 @@ import { Express as expressMiddleware } from 'express';
 import * as path from 'path';
 // import { StaticFileServeModule } from './static-file-serve/static-file-serve.module';
 import { SocketModule } from './socket/socket.module';
+import { PageModule } from './page/page.module';
 @Module({
-  imports: [SocketModule],
+  imports: [SocketModule, PageModule],
   controllers: [],
   providers: [],
 })
