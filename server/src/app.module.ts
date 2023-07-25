@@ -3,10 +3,10 @@ import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 // import { AppService } from './app.service';
 import { Express as expressMiddleware } from 'express';
 import * as path from 'path';
-import { StaticFileServeModule } from './static-file-serve/static-file-serve.module';
+// import { StaticFileServeModule } from './static-file-serve/static-file-serve.module';
 // import { SocketGateway } from './socket/socket.gateway';
 @Module({
-  imports: [StaticFileServeModule],
+  imports: [],
   controllers: [],
   providers: [],
 })
