@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // client/build 폴더 서빙
-  app.useStaticAssets(join(__dirname, '../', 'client', 'build'));
+  app.useStaticAssets(join(__dirname, '../', '../', 'client', 'build'));
 
   await app.listen(3000);
 }
