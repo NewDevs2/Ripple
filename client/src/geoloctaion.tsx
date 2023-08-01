@@ -8,7 +8,7 @@ import socketIOClient from "socket.io-client";
 // 컴포넌트
 
 // 웹소켓 서버
-const ENDPOINT = "https://localhost:3000"; // nest.js 서버 주소
+const ENDPOINT = "https://192.168.0.215:3000"; // nest.js 서버 주소
 
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
