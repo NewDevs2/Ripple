@@ -1,17 +1,12 @@
-// 리액트 라이브러리
 import React, { useState, useEffect } from "react";
 import "./geolocation.css";
-
-// 외부 라이브러리
 import socketIOClient from "socket.io-client";
 
-// 컴포넌트
-
-// 웹소켓 서버
-const ENDPOINT = "https://192.168.0.215:3000"; // nest.js 서버 주소
+const ENDPOINT = "https://192.168.0.215:3000";
 
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
+  const [locations, setLocations] = useState<string[]>([]);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -43,8 +38,9 @@ const Geolocation: React.FC = () => {
     };
     fetchLocation();
 
-    socket.on("location", (data: string) => {
-      console.log(`사용자의 위치 정보 : ${data}`);
+    socket.on("location", (data: string[]) => {
+      console.log(`${data}`);
+      setLocations(data.filter((location) => location !== userLocation));
     });
 
     const disconnectSocket = () => {
@@ -61,6 +57,12 @@ const Geolocation: React.FC = () => {
           <div>
             <h1>User Location</h1>
             {userLocation ? <p>{userLocation}</p> : <p>Loading...</p>}
+            <div>
+              <h2>Other Users' Locations</h2>
+              {locations.map((location, index) => (
+                <p key={index}>{location}</p>
+              ))}
+            </div>
           </div>
         </header>
       </div>

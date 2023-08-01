@@ -18,10 +18,12 @@ let WebsocketGateway = exports.WebsocketGateway = class WebsocketGateway {
     }
     handleConnection(client, ...args) {
         console.log('새로운 클라이언트 연결됨 : ', client.id);
+        client.emit('location', Array.from(this.users.values()));
     }
     handleDisconnect(client) {
         console.log('클라이언트 연결 끊김 : ', client.id);
         this.users.delete(client.id);
+        this.server.emit('location', Array.from(this.users.values()));
     }
     handleLocation(client, data) {
         const userLocationString = `유저 (${client.id}) 위치 정보 : ${data}`;
