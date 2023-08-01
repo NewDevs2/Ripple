@@ -4,12 +4,10 @@ import "./geolocation.css";
 
 // 외부 라이브러리
 import socketIOClient from "socket.io-client";
-import { resolve } from "path";
 
 // 컴포넌트
 
 // 웹소켓 서버
-// const ws = new WebSocket("ws://localhost:5001"); // 웹 소켓 서버 주소
 const ENDPOINT = "http://localhost:3000"; // nest.js 서버 주소
 
 const Geolocation: React.FC = () => {
@@ -26,7 +24,8 @@ const Geolocation: React.FC = () => {
 
         navigator.geolocation.getCurrentPosition(
           (position) => resolve(position),
-          (error) => reject(error)
+          (error) => reject(error),
+          { enableHighAccuracy: true }
         );
       });
 
@@ -48,7 +47,11 @@ const Geolocation: React.FC = () => {
       console.log(`사용자의 위치 정보 : ${data}`);
     });
 
-    return () => socket.disconnect();
+    const disconnectSocket = () => {
+      socket.disconnect();
+    };
+
+    return disconnectSocket;
   }, []);
 
   return (
