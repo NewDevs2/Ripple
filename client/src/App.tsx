@@ -5,7 +5,6 @@ import { Routes, Route, Link } from "react-router-dom";
 // 컴포넌트
 import logo from "./logo.svg";
 import "./App.css";
-import Geolocation from "./geoloctaion";
 
 async function requestNotificationPermission() {
   if ("Notification" in window) {

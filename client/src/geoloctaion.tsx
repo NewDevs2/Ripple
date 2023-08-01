@@ -2,48 +2,55 @@
 import React, { useState, useEffect } from "react";
 import "./geolocation.css";
 
+// 외부 라이브러리
+import socketIOClient from "socket.io-client";
+import { resolve } from "path";
+
 // 컴포넌트
 
 // 웹소켓 서버
-const ws = new WebSocket("ws://localhost:5001"); // 웹 소켓 서버 주소
+// const ws = new WebSocket("ws://localhost:5001"); // 웹 소켓 서버 주소
+const ENDPOINT = "http://localhost:3000"; // nest.js 서버 주소
 
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
 
-  const getCurrentLocation = (): Promise<GeolocationPosition> =>
-    new Promise((resolve, reject) => {
-      if (!navigator.geolocation) {
-        reject(new Error("Geolocation is not available"));
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => resolve(position),
-        (error) => reject(error)
-      );
-    });
-
   useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+
+    const getCurrentLocation = (): Promise<GeolocationPosition> =>
+      new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error("Geolocation을 지원하지 않습니다."));
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve(position),
+          (error) => reject(error)
+        );
+      });
+
     const fetchLocation = async () => {
       try {
         const position = await getCurrentLocation();
         const { latitude, longitude } = position.coords;
-        setUserLocation(`Latitude: ${latitude}, Longitude: ${longitude}`);
-        const userLocationString = `Latitude: ${latitude}, Longitude: ${longitude}`;
-
-        ws.send(userLocationString);
+        setUserLocation(`Latitude : ${latitude}, Longitude : ${longitude}`);
+        const userLocationString = `Latitude : ${latitude}, Longitude : ${longitude}`;
+        socket.emit("location", userLocationString);
       } catch (error) {
-        setUserLocation("Unable to retrieve location");
-        console.error("Error retrieving location:", error);
+        setUserLocation("위치를 가져올 수 없습니다.");
+        console.error("위치를 가져오는데 실패했습니다 : ", error);
       }
     };
-
     fetchLocation();
 
-    ws.onmessage = (event) => {
-      const receivedLocation = event.data;
-      console.log(`사용자의 위치 정보 : ${receivedLocation}`);
-    };
+    socket.on("location", (data: string) => {
+      console.log(`사용자의 위치 정보 : ${data}`);
+    });
+
+    return () => socket.disconnect();
   }, []);
+
   return (
     <>
       <div className="App">
