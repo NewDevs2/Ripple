@@ -19,8 +19,7 @@ const Geolocation: React.FC = () => {
 
         navigator.geolocation.getCurrentPosition(
           (position) => resolve(position),
-          (error) => reject(error),
-          { enableHighAccuracy: true }
+          (error) => reject(error)
         );
       });
 
