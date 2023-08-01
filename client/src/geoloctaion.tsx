@@ -4,6 +4,9 @@ import "./geolocation.css";
 
 // 컴포넌트
 
+// 웹소켓 서버
+const ws = new WebSocket("ws://localhost:5001"); // 웹 소켓 서버 주소
+
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
 
@@ -25,6 +28,9 @@ const Geolocation: React.FC = () => {
         const position = await getCurrentLocation();
         const { latitude, longitude } = position.coords;
         setUserLocation(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        const userLocationString = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+        ws.send(userLocationString);
       } catch (error) {
         setUserLocation("Unable to retrieve location");
         console.error("Error retrieving location:", error);
@@ -32,6 +38,11 @@ const Geolocation: React.FC = () => {
     };
 
     fetchLocation();
+
+    ws.onmessage = (event) => {
+      const receivedLocation = event.data;
+      console.log(`사용자의 위치 정보 : ${receivedLocation}`);
+    };
   }, []);
   return (
     <>

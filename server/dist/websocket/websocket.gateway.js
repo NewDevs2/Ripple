@@ -40,6 +40,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], WebsocketGateway.prototype, "handleLocation", null);
 exports.WebsocketGateway = WebsocketGateway = __decorate([
-    (0, websockets_1.WebSocketGateway)()
+    (0, websockets_1.WebSocketGateway)({ port: 5001 })
 ], WebsocketGateway);
 //# sourceMappingURL=websocket.gateway.js.map
