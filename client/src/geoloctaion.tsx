@@ -8,6 +8,31 @@ const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [locations, setLocations] = useState<string[]>([]);
 
+  // 두 지점 사이의 거리를 계산하는 함수
+  const calculateDistance = (
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number
+  ) => {
+    const R = 6371; // 지구 반지름 (단위 : km)
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // 두 지점 사이의 거리 (단위: km)
+    return distance;
+  };
+
+  const deg2rad = (deg: number) => {
+    return deg * (Math.PI / 180);
+  };
+
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
