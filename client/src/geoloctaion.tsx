@@ -101,9 +101,9 @@ const Geolocation: React.FC = () => {
             {userLocation ? <p>{userLocation}</p> : <p>Loading...</p>}
             <div>
               <h2>Other Users' Locations</h2>
-              {locations.map((location, index) => (
-                <p key={index}>{location}</p>
-              ))}
+              {locations.filter((location, index) =>
+                index === 0 ? null : <p key={index}>{location}</p>
+              )}
             </div>
             {distance !== null && (
               <p>다른 사용자와의 거리: {distance.toFixed(2)} km</p>
