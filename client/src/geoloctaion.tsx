@@ -4,34 +4,35 @@ import socketIOClient from "socket.io-client";
 
 const ENDPOINT = "https://192.168.123.130:3000";
 
+// 두 지점 사이의 거리를 계산하는 함수
+const calculateDistance = (
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+) => {
+  const R = 6371; // 지구 반지름 (단위 : km)
+  const dLat = deg2rad(lat2 - lat1);
+  const dLon = deg2rad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // 두 지점 사이의 거리 (단위: km)
+  return distance;
+};
+
+const deg2rad = (deg: number) => {
+  return deg * (Math.PI / 180);
+};
+
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [locations, setLocations] = useState<string[]>([]);
-
-  // 두 지점 사이의 거리를 계산하는 함수
-  const calculateDistance = (
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ) => {
-    const R = 6371; // 지구 반지름 (단위 : km)
-    const dLat = deg2rad(lat2 - lat1);
-    const dLon = deg2rad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c; // 두 지점 사이의 거리 (단위: km)
-    return distance;
-  };
-
-  const deg2rad = (deg: number) => {
-    return deg * (Math.PI / 180);
-  };
+  const [distance, setDistance] = useState<number | null>(null);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -63,7 +64,6 @@ const Geolocation: React.FC = () => {
     fetchLocation();
 
     socket.on("location", (data: string[]) => {
-      console.log(`${data}`);
       setLocations(data.filter((location) => location !== userLocation));
     });
 
@@ -73,6 +73,24 @@ const Geolocation: React.FC = () => {
 
     return disconnectSocket;
   }, []);
+
+  useEffect(() => {
+    if (userLocation && locations.length > 0) {
+      const { latitude: myLat, longitude: myLon } = parseLocation(userLocation);
+      const otherLocation = locations[0];
+      const { latitude: otherLat, longitude: otherLon } =
+        parseLocation(otherLocation);
+      const distance = calculateDistance(myLat, myLon, otherLat, otherLon);
+      setDistance(distance);
+    }
+  }, [userLocation, locations]);
+
+  const parseLocation = (location: string) => {
+    const [latStr, lonStr] = location.split(", ");
+    const latitude = parseFloat(latStr.split(":")[1].trim());
+    const longitude = parseFloat(lonStr.split(":")[1].trim());
+    return { latitude, longitude };
+  };
 
   return (
     <>
@@ -87,6 +105,9 @@ const Geolocation: React.FC = () => {
                 <p key={index}>{location}</p>
               ))}
             </div>
+            {distance !== null && (
+              <p>다른 사용자와의 거리: {distance.toFixed(2)} km</p>
+            )}
           </div>
         </header>
       </div>

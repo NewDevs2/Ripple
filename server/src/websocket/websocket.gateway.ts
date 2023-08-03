@@ -29,7 +29,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('location')
   handleLocation(client: any, data: string) {
-    const userLocationString = `유저 (${client.id}) 위치 정보 : ${data}`;
+    const userLocationString = `${data}`;
     this.users.set(client.id, userLocationString);
     this.server.emit('location', Array.from(this.users.values()));
   }
