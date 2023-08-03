@@ -29,6 +29,12 @@ const deg2rad = (deg: number) => {
   return deg * (Math.PI / 180);
 };
 
+// 두 지점 사이의 거리가 일정 거리 이하인지 확인하는 함수
+
+const distanceChecker = (distance: number | null): boolean => {
+  return distance !== null && distance <= 3;
+};
+
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [locations, setLocations] = useState<string[]>([]);
@@ -108,6 +114,9 @@ const Geolocation: React.FC = () => {
             {distance !== null && (
               <p>다른 사용자와의 거리: {distance.toFixed(2)} km</p>
             )}
+            {distanceChecker(distance)
+              ? "3km 이내에 있습니다."
+              : "3km 이내에 없습니다."}
           </div>
         </header>
       </div>
