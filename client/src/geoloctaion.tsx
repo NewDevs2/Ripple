@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./geolocation.css";
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "https://192.168.0.215:3000";
+const ENDPOINT = "https://192.168.123.130:3000";
 
 const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
