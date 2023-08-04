@@ -1,4 +1,4 @@
 node_modules
 localhost.crt
 localhost.key
-./dist/
+/dist/
