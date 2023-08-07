@@ -1,7 +1,21 @@
 import React from "react";
 import "./App.css";
 
+import YouTube from "react-youtube";
+
 const Player: React.FC = () => {
+  const playlistId = "PL1Qutxw15MZxpTtg1IjV42JFa4pMjMSk5"; // 재생 목록의 ID
+
+  const opts = {
+    height: "390",
+    width: "640",
+    playerVars: {
+      autoplay: 1,
+      listType: "playlist",
+      list: playlistId,
+    },
+  };
+
   return (
     <>
       <div className="App">
@@ -9,6 +23,7 @@ const Player: React.FC = () => {
           <p>
             <code>music player</code>.
           </p>
+          <YouTube {...opts} />
         </header>
       </div>
     </>
