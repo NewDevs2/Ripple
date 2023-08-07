@@ -11,7 +11,6 @@ const Player: React.FC = () => {
     width: "640",
     playerVars: {
       autoplay: 1,
-      controls: 1,
       listType: "playlist",
       list: playlistId,
       playlist: playlistId,
@@ -25,7 +24,7 @@ const Player: React.FC = () => {
           <p>
             <code>music player</code>.
           </p>
-          <YouTube {...opts} />
+          <YouTube opts={opts} />
         </header>
       </div>
     </>
