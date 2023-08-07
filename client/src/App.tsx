@@ -41,9 +41,7 @@ const App: React.FC = () => {
         <p>
           <code>Ripple</code>.<br></br>
           <button onClick={sendNotification}>푸시 알림 전송</button>
-          <button>이전</button>
-          <button>재생</button>
-          <button>다음</button>
+          <button>음악기능</button>
         </p>
       </header>
     </div>
