@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import { Link } from "react-router-dom";
+
 async function requestNotificationPermission() {
   if ("Notification" in window) {
     const permission = await Notification.requestPermission();
@@ -41,7 +43,9 @@ const App: React.FC = () => {
         <p>
           <code>Ripple</code>.<br></br>
           <button onClick={sendNotification}>푸시 알림 전송</button>
-          <button>음악기능</button>
+          <Link to="/player">
+            <button>음악기능</button>
+          </Link>
         </p>
       </header>
     </div>
