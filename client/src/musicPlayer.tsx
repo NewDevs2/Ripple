@@ -25,6 +25,14 @@ const Player: React.FC = () => {
     },
   };
 
+  const PLAYER_STATE = {
+    UNSTARTED: -1,
+    PLAYING: 1,
+    PAUSED: 2,
+    BUFFERING: 3,
+    // ... 기타 상태 값 정의
+  };
+
   // YouTube 플레이어 초기화가 완료되면 호출될 콜백 함수
   const onPlayerReady = (event: any) => {
     playerStateRef.current = event.target.getPlayerState();
@@ -34,27 +42,31 @@ const Player: React.FC = () => {
     if (youtubeRef.current && youtubeRef.current.internalPlayer) {
       const playerState = event.data;
       console.log(playerState);
-      if (playerState === -1) {
-        youtubeRef.current.internalPlayer.pauseVideo();
-      } else if (playerState === 1) {
-        youtubeRef.current.internalPlayer.playVideo();
+      switch (playerState) {
+        case PLAYER_STATE.UNSTARTED:
+          youtubeRef.current.internalPlayer.pauseVideo();
+          break;
+        case PLAYER_STATE.PLAYING:
+          youtubeRef.current.internalPlayer.playVideo();
+          break;
       }
     }
   };
 
-  // const handlePlayAndPause = () => {
-  //   if (youtubeRef.current && youtubeRef.current.internalPlayer) {
-  //     const playerState = playerStateRef.current; // playerState를 playerStateRef.current로 수정
-  //     console.log(playerState);
-  //     if (playerState === 1) {
-  //       // 재생 중일 경우, 일시정지함
-  //       youtubeRef.current.internalPlayer.pauseVideo();
-  //     } else if (playerState === -1 || playerState === 3 || playerState === 5) {
-  //       // 일시정지 상태이거나 동영상 종료 후 대기 상태라면 재생함
-  //       youtubeRef.current.internalPlayer.playVideo();
-  //     }
-  //   }
-  // };
+  const handlePlayAndPause = () => {
+    if (youtubeRef.current && youtubeRef.current.internalPlayer) {
+      const playerState = playerStateRef.current;
+      console.log(playerState);
+      switch (playerState) {
+        case PLAYER_STATE.BUFFERING:
+          youtubeRef.current.internalPlayer.pauseVideo();
+          break;
+        case PLAYER_STATE.UNSTARTED:
+          youtubeRef.current.internalPlayer.playVideo();
+          break;
+      }
+    }
+  };
 
   // 이전 영상으로 이동
   const handlePreviousVideo = () => {
@@ -85,7 +97,7 @@ const Player: React.FC = () => {
           />
           <div className="player">
             <TbPlayerSkipBackFilled onClick={handlePreviousVideo} />
-            <FaPlay onClick={onStateChange} />
+            <FaPlay onClick={handlePlayAndPause} />
             <TbPlayerSkipForwardFilled onClick={handleNextVideo} />
           </div>
         </header>
