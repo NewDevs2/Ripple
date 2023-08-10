@@ -41,6 +41,7 @@ const Player: React.FC = () => {
   const onStateChange = (event: any) => {
     if (youtubeRef.current && youtubeRef.current.internalPlayer) {
       const playerState = event.data;
+      playerStateRef.current = playerState; // 상태를 playerStateRef에 저장
       console.log(playerState);
       switch (playerState) {
         case PLAYER_STATE.UNSTARTED:
@@ -58,11 +59,11 @@ const Player: React.FC = () => {
       const playerState = playerStateRef.current;
       console.log(playerState);
       switch (playerState) {
-        case PLAYER_STATE.BUFFERING:
-          youtubeRef.current.internalPlayer.pauseVideo();
-          break;
-        case PLAYER_STATE.UNSTARTED:
+        case PLAYER_STATE.PAUSED: // 일시정지 상태일 때
           youtubeRef.current.internalPlayer.playVideo();
+          break;
+        case PLAYER_STATE.PLAYING: // 재생 상태일 때
+          youtubeRef.current.internalPlayer.pauseVideo();
           break;
       }
     }
