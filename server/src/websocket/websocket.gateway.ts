@@ -33,4 +33,13 @@ export class WebsocketGateway
     this.users.set(client.id, userLocationString);
     this.server.emit('location', Array.from(this.users.values()));
   }
+
+  @SubscribeMessage('videoTitleUpdate')
+  handleVideoTitleUpdate(
+    client: any,
+    payload: { userId: string; title: string },
+  ) {
+    // 다른 사용자가 접속 시 전체에게 알림
+    client.broadcast.emit('videoTitleUpdate', payload);
+  }
 }

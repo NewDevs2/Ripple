@@ -11,13 +11,14 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const websocket_gateway_1 = require("./websocket/websocket.gateway");
+const youtube_video_gateway_1 = require("./youtube-video/youtube-video.gateway");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, websocket_gateway_1.WebsocketGateway],
+        providers: [app_service_1.AppService, websocket_gateway_1.WebsocketGateway, youtube_video_gateway_1.YoutubeVideoGateway],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

@@ -9,26 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebsocketGateway = void 0;
+exports.YoutubeVideoGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
-let WebsocketGateway = exports.WebsocketGateway = class WebsocketGateway {
-    constructor() {
-        this.users = new Map();
-    }
-    handleConnection(client, ...args) {
-        console.log('새로운 클라이언트 연결됨 : ', client.id);
-        client.emit('location', Array.from(this.users.values()));
-    }
-    handleDisconnect(client) {
-        console.log('클라이언트 연결 끊김 : ', client.id);
-        this.users.delete(client.id);
-        this.server.emit('location', Array.from(this.users.values()));
-    }
-    handleLocation(client, data) {
-        const userLocationString = `${data}`;
-        this.users.set(client.id, userLocationString);
-        this.server.emit('location', Array.from(this.users.values()));
+let YoutubeVideoGateway = exports.YoutubeVideoGateway = class YoutubeVideoGateway {
+    afterInit(server) {
+        console.log('WebSocket Initialized');
     }
     handleVideoTitleUpdate(client, payload) {
         client.broadcast.emit('videoTitleUpdate', payload);
@@ -37,20 +23,14 @@ let WebsocketGateway = exports.WebsocketGateway = class WebsocketGateway {
 __decorate([
     (0, websockets_1.WebSocketServer)(),
     __metadata("design:type", socket_io_1.Server)
-], WebsocketGateway.prototype, "server", void 0);
-__decorate([
-    (0, websockets_1.SubscribeMessage)('location'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", void 0)
-], WebsocketGateway.prototype, "handleLocation", null);
+], YoutubeVideoGateway.prototype, "server", void 0);
 __decorate([
     (0, websockets_1.SubscribeMessage)('videoTitleUpdate'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
-], WebsocketGateway.prototype, "handleVideoTitleUpdate", null);
-exports.WebsocketGateway = WebsocketGateway = __decorate([
-    (0, websockets_1.WebSocketGateway)({ port: 5001 })
-], WebsocketGateway);
-//# sourceMappingURL=websocket.gateway.js.map
+], YoutubeVideoGateway.prototype, "handleVideoTitleUpdate", null);
+exports.YoutubeVideoGateway = YoutubeVideoGateway = __decorate([
+    (0, websockets_1.WebSocketGateway)()
+], YoutubeVideoGateway);
+//# sourceMappingURL=youtube-video.gateway.js.map
