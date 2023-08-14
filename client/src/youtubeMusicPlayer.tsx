@@ -8,6 +8,9 @@ import {
   TbPlayerSkipBackFilled,
   TbPlayerSkipForwardFilled,
 } from "react-icons/tb";
+import socketIOClient from "socket.io-client";
+
+const ENDPOINT = "http://localhost:3000";
 
 const Player: React.FC = () => {
   const playlistId = "PL1Qutxw15MZxpTtg1IjV42JFa4pMjMSk5"; // 재생 목록의 ID
@@ -46,7 +49,13 @@ const Player: React.FC = () => {
 
       // 영상이 바뀔 때마다 정보를 업데이트함
       setCurrentVideoTitle(event.target.getVideoData().title);
+      const socket = socketIOClient(ENDPOINT);
+      const updateVideoTitle = (userId: any, title: any) => {
+        socket.emit("videoTitleUpdate", { userId, title });
+      };
 
+      const title = event.target.getVideoData().title;
+      updateVideoTitle("user123", title);
       switch (playerState) {
         case PLAYER_STATE.UNSTARTED:
           youtubeRef.current.internalPlayer.pauseVideo();

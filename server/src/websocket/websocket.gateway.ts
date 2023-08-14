@@ -33,4 +33,15 @@ export class WebsocketGateway
     this.users.set(client.id, userLocationString);
     this.server.emit('location', Array.from(this.users.values()));
   }
+
+  @SubscribeMessage('videoTitleUpdate')
+  handleVideoTitleUpdate(
+    client: any,
+    payload: { userId: string; title: string },
+  ) {
+    console.log(payload);
+    // 사용자가 재생 중인 영상의 제목을 저장하고 전송
+    this.users.set(payload.userId, payload.title);
+    this.server.emit('videoTitleUpdate', Array.from(this.users.values()));
+  }
 }

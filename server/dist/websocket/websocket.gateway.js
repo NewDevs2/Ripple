@@ -30,6 +30,11 @@ let WebsocketGateway = exports.WebsocketGateway = class WebsocketGateway {
         this.users.set(client.id, userLocationString);
         this.server.emit('location', Array.from(this.users.values()));
     }
+    handleVideoTitleUpdate(client, payload) {
+        console.log(payload);
+        this.users.set(payload.userId, payload.title);
+        this.server.emit('videoTitleUpdate', Array.from(this.users.values()));
+    }
 };
 __decorate([
     (0, websockets_1.WebSocketServer)(),
@@ -41,6 +46,12 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", void 0)
 ], WebsocketGateway.prototype, "handleLocation", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('videoTitleUpdate'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], WebsocketGateway.prototype, "handleVideoTitleUpdate", null);
 exports.WebsocketGateway = WebsocketGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ port: 5001 })
 ], WebsocketGateway);
