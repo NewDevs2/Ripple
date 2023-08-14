@@ -49,6 +49,10 @@ const App: React.FC = () => {
             <Link to={"/geolocation"}>
               <button>리플기능</button>
             </Link>
+            <button onClick={sendNotification}>푸시 알림 전송</button>
+          <Link to="/player">
+            <button>음악기능</button>
+          </Link>
           </p>
         </header>
       </div>

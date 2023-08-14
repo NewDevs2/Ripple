@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import Player from "./youtubeMusicPlayer";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Geolocation from "./geoloctaion";
 
 const root = ReactDOM.createRoot(
@@ -16,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/geolocation" element={<Geolocation />} />
+        <Route path="/player" element={<Player />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
