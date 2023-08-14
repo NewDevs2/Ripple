@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
 
 import YouTube from "react-youtube";
@@ -17,7 +17,8 @@ const Player: React.FC = () => {
   const youtubeRef = useRef<any>(null);
   const playerStateRef = useRef<number | null>(null); // playerState를 기록할 ref
   const [currentVideoTitle, setCurrentVideoTitle] = useState<string>("");
-
+  const [userVideoTitle, setUserVideoTitle] = useState<string>("");
+  const socket = socketIOClient(ENDPOINT);
   const opts = {
     height: "390",
     width: "640",
@@ -28,6 +29,13 @@ const Player: React.FC = () => {
       playlist: playlistId,
     },
   };
+
+  // 컴포넌트 마운트 시 한 번만 실행
+  useEffect(() => {
+    socket.on("videoTitleUpdate", (titles: string[]) => {
+      setUserVideoTitle(titles[0]);
+    });
+  }, []); // 빈 의존성 배열로 한 번만 실행
 
   const PLAYER_STATE = {
     UNSTARTED: -1,
@@ -49,7 +57,7 @@ const Player: React.FC = () => {
 
       // 영상이 바뀔 때마다 정보를 업데이트함
       setCurrentVideoTitle(event.target.getVideoData().title);
-      const socket = socketIOClient(ENDPOINT);
+
       const updateVideoTitle = (userId: any, title: any) => {
         socket.emit("videoTitleUpdate", { userId, title });
       };
@@ -122,6 +130,7 @@ const Player: React.FC = () => {
             <TbPlayerSkipForwardFilled onClick={handleNextVideo} />
           </div>
           <p>{currentVideoTitle}</p>
+          <p>{userVideoTitle}</p>
         </header>
       </div>
     </>
