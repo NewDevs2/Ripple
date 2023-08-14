@@ -63,6 +63,9 @@ const Player: React.FC = () => {
       const playerState = playerStateRef.current;
       console.log(playerState);
       switch (playerState) {
+        case PLAYER_STATE.UNSTARTED: // 시작되지 않은 상태일 때
+          youtubeRef.current.internalPlayer.playVideo();
+          break;
         case PLAYER_STATE.PAUSED: // 일시정지 상태일 때
           youtubeRef.current.internalPlayer.playVideo();
           break;
