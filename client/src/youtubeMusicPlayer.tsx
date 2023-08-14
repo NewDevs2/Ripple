@@ -44,7 +44,7 @@ const Player: React.FC = () => {
       const playerState = event.data;
       playerStateRef.current = playerState; // 상태를 playerStateRef에 저장
 
-      // 상태 변화에 따라 영상 정보 업데이트
+      // 영상이 바뀔 때마다 정보를 업데이트함
       setCurrentVideoTitle(event.target.getVideoData().title);
 
       switch (playerState) {
