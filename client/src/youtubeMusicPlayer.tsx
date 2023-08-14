@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 
 import YouTube from "react-youtube";
 
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 import {
   TbPlayerSkipBackFilled,
   TbPlayerSkipForwardFilled,
@@ -13,6 +13,7 @@ const Player: React.FC = () => {
   const playlistId = "PL1Qutxw15MZxpTtg1IjV42JFa4pMjMSk5"; // 재생 목록의 ID
   const youtubeRef = useRef<any>(null);
   const playerStateRef = useRef<number | null>(null); // playerState를 기록할 ref
+  const [currentVideoTitle, setCurrentVideoTitle] = useState<string>("");
 
   const opts = {
     height: "390",
@@ -36,13 +37,16 @@ const Player: React.FC = () => {
   // YouTube 플레이어 초기화가 완료되면 호출될 콜백 함수
   const onPlayerReady = (event: any) => {
     playerStateRef.current = event.target.getPlayerState();
+    setCurrentVideoTitle(event.target.getVideoData().title);
   };
-
   const onStateChange = (event: any) => {
     if (youtubeRef.current && youtubeRef.current.internalPlayer) {
       const playerState = event.data;
       playerStateRef.current = playerState; // 상태를 playerStateRef에 저장
-      console.log(playerState);
+
+      // 상태 변화에 따라 영상 정보 업데이트
+      setCurrentVideoTitle(event.target.getVideoData().title);
+
       switch (playerState) {
         case PLAYER_STATE.UNSTARTED:
           youtubeRef.current.internalPlayer.pauseVideo();
@@ -70,14 +74,14 @@ const Player: React.FC = () => {
   };
 
   // 이전 영상으로 이동
-  const handlePreviousVideo = () => {
+  const handlePreviousVideo = (event: any) => {
     if (youtubeRef.current && youtubeRef.current.internalPlayer) {
       youtubeRef.current.internalPlayer.previousVideo();
     }
   };
 
   // 다음 영상으로 이동
-  const handleNextVideo = () => {
+  const handleNextVideo = (event: any) => {
     if (youtubeRef.current && youtubeRef.current.internalPlayer) {
       youtubeRef.current.internalPlayer.nextVideo();
     }
@@ -98,9 +102,14 @@ const Player: React.FC = () => {
           />
           <div className="player">
             <TbPlayerSkipBackFilled onClick={handlePreviousVideo} />
-            <FaPlay onClick={handlePlayAndPause} />
+            {playerStateRef.current === PLAYER_STATE.PLAYING ? (
+              <FaPause onClick={handlePlayAndPause} />
+            ) : (
+              <FaPlay onClick={handlePlayAndPause} />
+            )}
             <TbPlayerSkipForwardFilled onClick={handleNextVideo} />
           </div>
+          <p>{currentVideoTitle}</p>
         </header>
       </div>
     </>
