@@ -10,11 +10,10 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // CRA 빌드 결과물이 위치한 경로를 지정합니다.
-  console.log(path.join(__dirname, '..', '..', 'client', 'build'))
+  console.log(path.join(__dirname, '..', '..', 'client', 'build'));
   const staticFilesPath = path.join(__dirname, '..', '..', 'client', 'build');
   app.useStaticAssets(staticFilesPath);
 
-  
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
