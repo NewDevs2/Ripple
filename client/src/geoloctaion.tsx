@@ -113,7 +113,7 @@ const Geolocation: React.FC = () => {
           height={"100vh"}
         >
           {userLocation ? (
-            <MyIcon /> // 현재 사용자의 위치에 UserIcon을 표시
+            <MyIcon /> // 현재 사용자의 위치에 MyIcon을 표시
           ) : (
             <Text>위치를 불러오는 중입니다...</Text>
           )}
