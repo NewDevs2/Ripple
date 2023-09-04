@@ -112,22 +112,20 @@ const Geolocation: React.FC = () => {
           height={"100vh"}
         >
           {userLocation ? (
-            <UserIcon />
+            <UserIcon location={userLocation} /> // 현재 사용자의 위치에 UserIcon을 표시
           ) : (
             <Text>위치를 불러오는 중입니다...</Text>
           )}
-          {/* <Box>
-              <Heading>Other Users' Locations</Heading>
-              {locations.filter((location, index) =>
-                index === 0 ? null : <Text key={index}>{location}</Text>
-              )}
-            </Box> */}
+          {/* 다른 사용자의 위치에 UserIcon을 표시 */}
+          {locations.map((location, index) =>
+            index === 0 ? null : <UserIcon key={index} location={location} />
+          )}
           {/* {distance !== null && (
-              <Text>다른 사용자와의 거리: {distance.toFixed(2)} km</Text>
-            )}
-            {distanceChecker(distance)
-              ? "3km 이내에 있습니다."
-              : "3km 이내에 없습니다."} */}
+            <Text>다른 사용자와의 거리: {distance.toFixed(2)} km</Text>
+          )} */}
+          {/* {distanceChecker(distance)
+            ? "3km 이내에 있습니다."
+            : "3km 이내에 없습니다."} */}
         </Box>
       </Box>
     </>

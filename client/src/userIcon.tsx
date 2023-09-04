@@ -3,7 +3,11 @@ import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
 
-const UserIcon: React.FC = () => {
+interface UserIconProps {
+  location: string;
+}
+
+const UserIcon: React.FC<UserIconProps> = ({ location }) => {
   return (
     <>
       <Box
