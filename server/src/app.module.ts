@@ -5,13 +5,25 @@ import { WebsocketGateway } from './websocket/websocket.gateway';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PageModule } from './page/page.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/nest', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }), AuthModule,PageModule],
+  imports: [
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule], // ConfigModule을 가져와 사용
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_KEY'), // .env 파일의 MONGODB_KEY 값을 가져옴
+      }),
+      inject: [ConfigService],
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    AuthModule,
+    PageModule,
+  ],
   controllers: [AppController],
   providers: [AppService, WebsocketGateway],
 })
-export class AppModule { }
+export class AppModule {}
