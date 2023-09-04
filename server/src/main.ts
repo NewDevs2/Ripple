@@ -5,16 +5,21 @@ import { join } from 'path';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as express from 'express';
+import * as fs from 'fs';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    httpsOptions: {
+      key: fs.readFileSync('localhost.key'),
+      cert: fs.readFileSync('localhost.crt'),
+    },
+  });
 
   // CRA 빌드 결과물이 위치한 경로를 지정합니다.
-  console.log(path.join(__dirname, '..', '..', 'client', 'build'))
+  console.log(path.join(__dirname, '..', '..', 'client', 'build'));
   const staticFilesPath = path.join(__dirname, '..', '..', 'client', 'build');
   app.useStaticAssets(staticFilesPath);
 
-  
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
