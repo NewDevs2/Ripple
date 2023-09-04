@@ -41,6 +41,16 @@ const Geolocation: React.FC = () => {
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [locations, setLocations] = useState<string[]>([]);
   const [distance, setDistance] = useState<number | null>(null);
+  const [userIcons, setUserIcons] = useState<
+    { location: string; position: { x: number; y: number } }[]
+  >([]);
+
+  // UserIcon의 무작위 x와 y 좌표를 생성.
+  const generateRandomPosition = () => {
+    const x = Math.random() * (window.innerWidth - 50); // 아이콘의 너비에 맞게 50을 조절
+    const y = Math.random() * (window.innerHeight - 50); // 아이콘의 높이에 맞게 50을 조절
+    return { x, y };
+  };
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -71,8 +81,15 @@ const Geolocation: React.FC = () => {
     };
     fetchLocation();
 
+    // socket.on("location", (data: string[]) => {
+    //   setLocations(data.filter((location) => location !== userLocation));
+    // });
+
     socket.on("location", (data: string[]) => {
-      setLocations(data.filter((location) => location !== userLocation));
+      const newUserIcons = data
+        .filter((location) => location !== userLocation)
+        .map((location) => ({ location, position: generateRandomPosition() }));
+      setUserIcons(newUserIcons);
     });
 
     const disconnectSocket = () => {
@@ -118,9 +135,13 @@ const Geolocation: React.FC = () => {
             <Text>위치를 불러오는 중입니다...</Text>
           )}
           {/* 다른 사용자의 위치에 UserIcon을 표시 */}
-          {locations.map((location, index) =>
-            index === 0 ? null : <UserIcon key={index} location={location} />
-          )}
+          {userIcons.map((userIcon, index) => (
+            <UserIcon
+              key={index}
+              location={userIcon.location}
+              position={userIcon.position}
+            />
+          ))}
           {/* {distance !== null && (
             <Text>다른 사용자와의 거리: {distance.toFixed(2)} km</Text>
           )} */}
