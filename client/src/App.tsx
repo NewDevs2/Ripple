@@ -1,10 +1,10 @@
 // 리액트 라이브러리
 import React, { useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import Kakao from './kakaoLogin';
 // 컴포넌트
-import logo from "./logo.svg";
 import "./App.css";
+import logo from "./logo.svg";
 
 async function requestNotificationPermission() {
   if ("Notification" in window) {
@@ -52,6 +52,7 @@ const App: React.FC = () => {
             <Link to="/player">
               <button>음악기능</button>
             </Link>
+            <Kakao />
           </p>
         </header>
       </div>
