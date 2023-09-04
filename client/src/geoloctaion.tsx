@@ -4,7 +4,7 @@ import UserIcon from "./userIcon";
 import MyIcon from "./myLocationIcon";
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "https://172.30.1.69:3000";
+const ENDPOINT = "https://172.30.1.41:3000";
 
 // 두 지점 사이의 거리를 계산하는 함수
 const calculateDistance = (
