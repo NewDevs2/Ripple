@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Heading } from "@chakra-ui/react";
 import UserIcon from "./userIcon";
+import MyIcon from "./myLocationIcon";
 import socketIOClient from "socket.io-client";
 
 const ENDPOINT = "https://172.30.1.69:3000";
@@ -112,7 +113,7 @@ const Geolocation: React.FC = () => {
           height={"100vh"}
         >
           {userLocation ? (
-            <UserIcon location={userLocation} /> // 현재 사용자의 위치에 UserIcon을 표시
+            <MyIcon /> // 현재 사용자의 위치에 UserIcon을 표시
           ) : (
             <Text>위치를 불러오는 중입니다...</Text>
           )}

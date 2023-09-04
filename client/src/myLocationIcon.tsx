@@ -3,11 +3,7 @@ import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
 
-interface UserIconProps {
-  location: string;
-}
-
-const UserIcon: React.FC<UserIconProps> = ({ location }) => {
+const MyIcon: React.FC = () => {
   return (
     <>
       <Box
@@ -16,11 +12,14 @@ const UserIcon: React.FC<UserIconProps> = ({ location }) => {
         justifyContent={"center"}
         width={"15vw"}
         height={"7vh"}
+        backgroundColor={"#7FC8F8"}
+        borderRadius={"50%"}
       >
-        <AiOutlineUser color="#7FC8F8" size="30px" />
+        <AiOutlineUser color="white" size="30px" />
+        <Text>나</Text>
       </Box>
     </>
   );
 };
 
-export default UserIcon;
+export default MyIcon;
