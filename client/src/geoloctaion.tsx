@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./geolocation.css";
+import { Box, Text, Heading } from "@chakra-ui/react";
+import UserIcon from "./userIcon";
 import socketIOClient from "socket.io-client";
 
 const ENDPOINT = "https://172.30.1.69:3000";
@@ -100,26 +101,35 @@ const Geolocation: React.FC = () => {
 
   return (
     <>
-      <div className="App">
-        <header className="App-header">
-          <div>
-            <h1>User Location</h1>
-            {userLocation ? <p>{userLocation}</p> : <p>Loading...</p>}
-            <div>
-              <h2>Other Users' Locations</h2>
+      <Box className="App">
+        <Box
+          className="container"
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={"column"}
+          width={"100vw"}
+          height={"100vh"}
+        >
+          {userLocation ? (
+            <UserIcon />
+          ) : (
+            <Text>위치를 불러오는 중입니다...</Text>
+          )}
+          {/* <Box>
+              <Heading>Other Users' Locations</Heading>
               {locations.filter((location, index) =>
-                index === 0 ? null : <p key={index}>{location}</p>
+                index === 0 ? null : <Text key={index}>{location}</Text>
               )}
-            </div>
-            {distance !== null && (
-              <p>다른 사용자와의 거리: {distance.toFixed(2)} km</p>
+            </Box> */}
+          {/* {distance !== null && (
+              <Text>다른 사용자와의 거리: {distance.toFixed(2)} km</Text>
             )}
             {distanceChecker(distance)
               ? "3km 이내에 있습니다."
-              : "3km 이내에 없습니다."}
-          </div>
-        </header>
-      </div>
+              : "3km 이내에 없습니다."} */}
+        </Box>
+      </Box>
     </>
   );
 };
