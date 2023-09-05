@@ -5,9 +5,7 @@ const Kakao = () : JSX.Element => {
   function kakaoLogin() {
     axios.get('/auth/kakao')
     .then((response) => {
-      const responseData = response.data;
-      console.log(response);
-      console.log('서버에서 넘어온 데이터:', responseData);
+      console.log('카카오 로그인 요청 성공적으로 전송');
     })
     .catch((error) => {
       console.error('카카 오 로그인 요청 실패:', error);
