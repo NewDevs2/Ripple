@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
-import Player from "./youtubeMusicPlayer";
-import reportWebVitals from "./reportWebVitals";
+import KakaoCallback from "./callback/kakao";
 import Geolocation from "./geoloctaion";
-
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import Player from "./youtubeMusicPlayer";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -17,6 +17,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/geolocation" element={<Geolocation />} />
         <Route path="/player" element={<Player />} />
+        <Route path="/oauth/kakao" element={<KakaoCallback />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
