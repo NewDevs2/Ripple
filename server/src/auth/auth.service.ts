@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Injectable()
 export class AuthService {
   async processKakaoLogin(code: any) {
@@ -12,8 +13,8 @@ export class AuthService {
         {
           params: {
             grant_type: 'authorization_code',
-            client_id: 'e13169ec36f699296518921c6bd1fbd7',
-            redirect_uri: 'http://localhost:3000/oauth/kakao',
+            client_id: `${process.env.kakao_client_id}`,
+            redirect_uri: `${process.env.kako_redirect_uri}`,
             code: code,
           },
         },
