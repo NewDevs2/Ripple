@@ -13,16 +13,42 @@ export class UserService {
       } as mongoose.ConnectOptions);
       //인터페이스
       interface IUser extends Document {
-        id: number;
+        _id: number;
+        _last_connect: string;
       }
       // 새로운 스키마 생성
       const userSchema = new mongoose.Schema<IUser>({
-        id: Number,
+        _id: {
+          type: Number,
+          required: true,
+          unique: true,
+        },
+        _last_connect: {
+          type: String,
+          required: true,
+          unique: false,
+        },
       });
       // 유저 모델 생성
       const User = mongoose.model<IUser>('User', userSchema);
-      const saveUserInfo = new User({ id: user_info.id });
-      await saveUserInfo.save();
+      const userModel = mongoose.models['User'];
+      // 유저 id 조회 + db에 id없으면 저장
+      USER_ID_INQUIRY(user_info.id, user_info);
+      async function USER_ID_INQUIRY(user_id: number, newData: Partial<IUser>) {
+        const userIDCheck = await User.findById(user_id);
+        if (userIDCheck) {
+          userIDCheck._last_connect = newData._last_connect;
+          await userIDCheck.save();
+          console.log(`유저 정보 저장 ${userIDCheck}`);
+        } else {
+          const saveUserInfo = new userModel({
+            _id: user_id,
+            _last_connect: user_info.connected_at,
+          });
+          await saveUserInfo.save();
+          console.log(`새로운 유저 db에 저장 ${saveUserInfo}`);
+        }
+      }
     } catch (error) {
       console.log(`DB저장 실패 : ${error}`);
     }
