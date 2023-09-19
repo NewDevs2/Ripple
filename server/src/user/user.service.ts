@@ -25,8 +25,6 @@ export class UserService {
         },
         _last_connect: {
           type: String,
-          required: true,
-          unique: false,
         },
       });
       // 유저 모델 생성
