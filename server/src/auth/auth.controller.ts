@@ -31,7 +31,12 @@ export class AuthController {
             expiresIn: '1h',
           });
           console.log(`JWT 토큰 발급 완료: ${token}`);
-          return res.status(200).json({ access_token: token });
+          return res
+            .cookie('kakao_token', JSON.stringify(token), {
+              path: '/',
+              httpOnly: true,
+            })
+            .json(token);
         } else if (userResult.access === false) {
           console.log(
             'DB에 유저 데이터 저장 혹은, 카카오 유저 정보 조회에서 문제가 생겼습니다.',

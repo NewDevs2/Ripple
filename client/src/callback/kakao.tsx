@@ -22,6 +22,10 @@ const KakaoCallback = () => {
           // 사용자 정보를 가져온 후, 클라이언트 애플리케이션으로 리디렉션 (예: 홈 페이지로)
           navigate('/');
         })
+        // 서버에서 받은 토큰 데이터 쿠키에 저장
+        .then((JWT_token) => {
+          document.cookie = `kakao_token=${JSON.stringify(JWT_token)}; path=/`;
+        })
         .catch((error) => {
           console.error('서버 요청 오류:', error);
 
