@@ -1,9 +1,10 @@
 // 리액트 라이브러리
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Kakao from './kakaoLogin';
 // 컴포넌트
 import "./App.css";
+import Kakao from './kakaoLogin';
+import LogOut from "./logOut";
 import logo from "./logo.svg";
 
 async function requestNotificationPermission() {
@@ -16,6 +17,7 @@ async function requestNotificationPermission() {
 }
 
 const App: React.FC = () => {
+  const [loginState, setLoginState] = useState(false);
   useEffect(() => {
     requestNotificationPermission();
   }, []);
@@ -52,7 +54,7 @@ const App: React.FC = () => {
             <Link to="/player">
               <button>음악기능</button>
             </Link>
-            <Kakao />
+            {loginState? (<Kakao />) : (<LogOut />)}
           </p>
         </header>
       </div>
