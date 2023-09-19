@@ -34,7 +34,6 @@ export class AuthController {
           return res
             .cookie('kakao_token', JSON.stringify(token), {
               path: '/',
-              httpOnly: true,
             })
             .json(token);
         } else if (userResult.access === false) {
