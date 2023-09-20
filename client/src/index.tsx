@@ -1,4 +1,5 @@
 import React from "react";
+import { CookiesProvider } from 'react-cookie';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
@@ -12,6 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <CookiesProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
@@ -20,6 +22,7 @@ root.render(
         <Route path="/oauth/kakao" element={<KakaoCallback />} />
       </Routes>
     </BrowserRouter>
+    </CookiesProvider>
   </React.StrictMode>
 );
 
