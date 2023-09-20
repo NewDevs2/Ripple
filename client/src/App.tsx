@@ -1,12 +1,11 @@
 // 리액트 라이브러리
 import React, { useEffect } from "react";
-import { useCookies } from 'react-cookie';
 import { Link } from "react-router-dom";
+import LoginCatch from './loginCatch';
 // 컴포넌트
 import "./App.css";
 import Kakao from './kakaoLogin';
 import logo from "./logo.svg";
-
 async function requestNotificationPermission() {
   if ("Notification" in window) {
     const permission = await Notification.requestPermission();
@@ -17,14 +16,6 @@ async function requestNotificationPermission() {
 }
 
 const App: React.FC = () => {
-  //쿠키
-  const [cookies] = useCookies(['kakao_token']);
-   // 쿠키 데이터 확인
-  useEffect(() => {
-    // 쿠키 데이터 확인
-    console.log('쿠키 데이터:', cookies.kakao_token);
-  }, [cookies.kakao_token]);
-
   useEffect(() => {
     requestNotificationPermission();
   }, []);
@@ -62,6 +53,7 @@ const App: React.FC = () => {
               <button>음악기능</button>
             </Link>
             <Kakao />
+            <LoginCatch />
           </p>
         </header>
       </div>
