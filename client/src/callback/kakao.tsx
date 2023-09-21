@@ -17,7 +17,7 @@ const KakaoCallback = () => {
           // 서버 응답을 처리합니다.
           console.log('서버 응답:', response.data);
           navigate('/');
-          document.cookie = `kakao_token=${JSON.stringify(response)}; path=/`;
+          document.cookie = `kakao_token=${JSON.stringify(response.data)}; path=/`;
         })
         .catch((error) => {
           console.error('서버 요청 오류:', error);
