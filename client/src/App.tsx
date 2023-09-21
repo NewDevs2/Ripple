@@ -1,7 +1,7 @@
 // 리액트 라이브러리
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import LoginCatch from './loginCatch';
+// import LoginCatch from './loginCatch';
 // 컴포넌트
 import "./App.css";
 import Kakao from './kakaoLogin';
@@ -53,7 +53,7 @@ const App: React.FC = () => {
               <button>음악기능</button>
             </Link>
             <Kakao />
-            <LoginCatch />
+            {/* <LoginCatch /> */}
           </p>
         </header>
       </div>
