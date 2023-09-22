@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from './app.module';
-import { join } from 'path';
 import * as bodyParser from 'body-parser';
-import * as path from 'path';
 import * as express from 'express';
+import * as path from 'path';
+import { join } from 'path';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -24,6 +24,6 @@ async function bootstrap() {
   //   res.sendFile(path.join(staticFilesPath, 'index.html'));
   // });
 
-  await app.listen(3000);
+  await app.listen(8080);
 }
 bootstrap();

@@ -8,11 +8,17 @@ import Geolocation from "./geoloctaion";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Player from "./youtubeMusicPlayer";
+// 로그인 상태 관리 모듈과 패키지
+import { loginState } from "./auth/loginState";
+import {RecoilRoot} from 'recoil';
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    {/* recoil 전역 관리 범위 */}
+    <RecoilRoot >
+    {/* 쿠키 제공 범위 */}
     <CookiesProvider>
     <BrowserRouter>
       <Routes>
@@ -23,6 +29,7 @@ root.render(
       </Routes>
     </BrowserRouter>
     </CookiesProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
 
