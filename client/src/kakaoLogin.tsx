@@ -9,7 +9,7 @@ const Kakao = () : JSX.Element => {
   // 로그인 때 이동 할 URL
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_kakao_client_id}&redirect_uri=${process.env.REACT_APP_kakao_restAPI_key}&response_type=code`
   // 쿠키
-  const [cookies, , removeCookie] = useCookies(['kakao_token']);
+  const [cookies, setCookie, removeCookie] = useCookies(['kakao_token']);
 
   const kakaoLogIn = () => {
     window.location.href = kakaoURL;

@@ -3,12 +3,14 @@ import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
+
 @Controller('oauth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
+
   @Post('kakao')
   async kakaoLogin(@Res() res: Response, @Req() req: Request) {
     try {
@@ -31,6 +33,12 @@ export class AuthController {
             expiresIn: '1h',
           });
           console.log(`JWT 토큰 발급 완료: ${token}`);
+          // 쿠키 설정
+          res.cookie('kakao_token', token, {
+            path: '/',
+            httpOnly: false,
+          });
+
           return res.send(token);
         } else if (userResult.access === false) {
           console.log(
