@@ -28,18 +28,45 @@ export class AuthController {
         // true가 반환되면 유저 정보 성공적으로 받아온 것
         if (userResult.access === true) {
           console.log(userResult);
-          const user_information = userResult.information;
-          const token = jwt.sign(user_information, 'your-secret-key', {
-            expiresIn: '1h',
-          });
-          console.log(`JWT 토큰 발급 완료: ${token}`);
-          // 쿠키 설정
-          res.cookie('kakao_token', token, {
-            path: '/',
-            httpOnly: false,
-          });
-
-          return res.send(token);
+          // access Token
+          try {
+            const access_token = jwt.sign(
+              {
+                id: userResult.information.id,
+                last_connect: userResult.information.connected_at,
+                profile_image: userResult.information.properties.profile_image,
+              },
+              // 시크릿 키
+              process.env.ACCESS_SECRET,
+              // 유효 시간, 발급자
+              { expiresIn: '1m', issuer: 'Rubin' },
+            );
+            // refresh Token
+            const refresh_token = jwt.sign(
+              {
+                id: userResult.information.id,
+                last_connect: userResult.information.connected_at,
+                profile_image: userResult.information.properties.profile_image,
+              },
+              process.env.ACCESS_SECRET,
+              {
+                expiresIn: '24h',
+                issuer: 'Rubin',
+              },
+            );
+            res.cookie('KAKAO_ACCESS_TOKEN', access_token, {
+              // loacl서버가 현재 http므로 false로 설정
+              secure: false,
+              httpOnly: true,
+            });
+            res.cookie('KAKAO_REFRESH_TOKEN', refresh_token, {
+              secure: false,
+              httpOnly: true,
+            });
+            res.status(200).json('login Success');
+          } catch (error) {
+            res.status(500).json(error);
+          }
         } else if (userResult.access === false) {
           console.log(
             'DB에 유저 데이터 저장 혹은, 카카오 유저 정보 조회에서 문제가 생겼습니다.',
