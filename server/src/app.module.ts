@@ -6,10 +6,12 @@ import { WebsocketGateway } from './websocket/websocket.gateway';
 import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
+import { AccesstokenController } from './accesstoken/accesstoken.controller';
+import { AccesstokenService } from './accesstoken/accesstoken.service';
 
 @Module({
   imports: [AuthModule, UserModule],
-  controllers: [AppController, UserController],
-  providers: [AppService, WebsocketGateway, UserService],
+  controllers: [AppController, UserController, AccesstokenController],
+  providers: [AppService, WebsocketGateway, UserService, AccesstokenService],
 })
 export class AppModule {}

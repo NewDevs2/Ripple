@@ -1,4 +1,5 @@
 import { Controller, Post, Req, Res } from '@nestjs/common';
+import axios from 'axios';
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { UserService } from 'src/user/user.service';
@@ -64,6 +65,10 @@ export class AuthController {
               httpOnly: true,
             });
             res.status(200).json('login Success');
+            // 액세스 토큰 검증
+            axios.post('/accesstoken/kakao', access_token).then((response) => {
+              res.status(200).json(response.data);
+            });
           } catch (error) {
             res.status(500).json(error);
           }
