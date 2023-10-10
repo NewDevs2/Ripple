@@ -1,6 +1,22 @@
-import { atom } from 'recoil';
-// 쿠키 유무에 따른 로그인 상태 관리를 위한 atom
-export const loginState = atom<boolean>({
-  key : 'isloggedinState',
-  default :document.cookie.includes('kakao_token'),
+import { atom, useSetRecoilState } from 'recoil';
+
+export const isLoggedInState = atom({
+  key: 'isLoggedIn',
+  default: false, // 초기값은 로그아웃 상태
 });
+// 유저 정보 인터페이스
+interface UserInfo {
+  id: number;
+}
+export const userInformationState = atom<UserInfo | null>({
+  key: 'userInformation',
+  default: null, // 초기값은 사용자 정보 없음
+});
+// 로그인 상태관리 함수
+export function useSetLoggedInState() {
+  return useSetRecoilState(isLoggedInState);
+}
+// 유저 정보 상태관리 함수
+export function useSetUserInformation() {
+  return useSetRecoilState(userInformationState);
+}

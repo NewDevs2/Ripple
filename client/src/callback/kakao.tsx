@@ -2,10 +2,11 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useSetLoggedInState, useSetUserInformation } from '../auth/loginState';
 const KakaoCallback = () => {
   const navigate = useNavigate();
-
+  const setLoggedInState = useSetLoggedInState();
+  const setUserInformation = useSetUserInformation();
   useEffect(() => {
     // URL에서 code 값을 추출
     const urlParams = new URLSearchParams(window.location.search);
@@ -17,6 +18,9 @@ const KakaoCallback = () => {
         .then((response) => {
           // 서버 응답을 처리합니다.
           console.log('서버 응답:', response.data);
+          // 유저 정보, 유저 로그인 상태 업데이트
+          setLoggedInState(response.data.longinState);
+          setUserInformation(response.data.userInformation);
           navigate('/');
         })
         .catch((error) => {

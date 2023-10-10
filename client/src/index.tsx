@@ -9,7 +9,6 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Player from "./youtubeMusicPlayer";
 // 로그인 상태 관리 모듈과 패키지
-import { loginState } from "./auth/loginState";
 import {RecoilRoot} from 'recoil';
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
