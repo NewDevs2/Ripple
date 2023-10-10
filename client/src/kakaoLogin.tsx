@@ -1,7 +1,8 @@
 import kakao_login from './kakao_login.png';
 // 로그인 상태를 구독
-import { isLoggedInState, userInformationState } from './auth/loginState';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
+import { isLoggedInState, userInformationState } from './auth/loginState';
 const Kakao = () : JSX.Element => {
   interface UserInfo {
     id: number;
@@ -32,9 +33,12 @@ const Kakao = () : JSX.Element => {
     // 로그아웃
   //   setIsLoggedIn(false);
   // }
-
-  if (!isLoggedin) {
-    return <div>{userInformation?.id}님 안녕하세요.</div>
+  useEffect(() => {
+  console.log(isLoggedin);
+  console.log(userInformation);
+  }, [isLoggedin, userInformation]);
+  if (isLoggedin) {
+    return <div>{userInformation}님 안녕하세요.</div>
   }
   return (
         <div onClick={kakaoLogIn}>

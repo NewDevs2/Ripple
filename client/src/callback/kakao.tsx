@@ -19,8 +19,8 @@ const KakaoCallback = () => {
           // 서버 응답을 처리합니다.
           console.log('서버 응답:', response.data);
           // 유저 정보, 유저 로그인 상태 업데이트
-          setLoggedInState(response.data.longinState);
-          setUserInformation(response.data.userInformation);
+          setLoggedInState(response.data.loginState);
+          setUserInformation(response.data.userInformation.id);
           navigate('/');
         })
         .catch((error) => {
@@ -33,7 +33,7 @@ const KakaoCallback = () => {
 
   return (
     <div>
-      카카오 로그인
+      카카오 로그인 중
     </div>
   );
 }
