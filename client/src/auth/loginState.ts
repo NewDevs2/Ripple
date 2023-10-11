@@ -6,9 +6,11 @@ export const isLoggedInState = atom({
 });
 // 유저 정보 인터페이스
 interface UserInfo {
-  id: number;
+  lastConnect : string,
+  id: number,
+  profile : string
 }
-export const userInformationState = atom<number | null>({
+export const userInformationState = atom<UserInfo | null>({
   key: 'userInformationState',
   default: null, // 초기값은 사용자 정보 없음
 });

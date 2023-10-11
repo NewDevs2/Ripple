@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
 import kakao_login from './kakao_login.png';
-// 로그인 상태 값
-import { isLoggedInState, userInformationState } from './auth/loginState';
-// 로그인 상태 관리 함수
-import { useSetLoggedInState, useSetUserInformation } from './auth/loginState';
+// 로그인 상태 관리 모듈
+import { useRecoilValue } from 'recoil';
+import { isLoggedInState, useSetLoggedInState, useSetUserInformation, userInformationState } from './auth/loginState';
+
 const Kakao = () : JSX.Element => {
   // 로그인 상태 값
   const isLoggedin = useRecoilValue(isLoggedInState);
@@ -30,10 +29,13 @@ const Kakao = () : JSX.Element => {
   console.log(isLoggedin);
   console.log(userInformation);
   }, [isLoggedin, userInformation]);
+  // 로그인 상태일 때 보여질 컴포넌트
   if (isLoggedin) {
-    return <><div>{userInformation}님 안녕하세요.</div>
+    const user_img = userInformation?.profile;
+    return <><img src={user_img} alt="카카오톡_프로필 사진"/><div>{userInformation?.id}님 안녕하세요.</div><p>마지막 접속은 {userInformation?.lastConnect}입니다.</p>
     <button onClick={kakaoLogOut}>로그아웃</button></>
   }
+  // 로그아웃 상태일 때 보여질 컴포넌트
   return (
         <div onClick={kakaoLogIn}>
           <img src={kakao_login} alt="카카오로그인" /></div>

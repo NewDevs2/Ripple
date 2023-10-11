@@ -66,7 +66,11 @@ export class AuthController {
             // 유저 정보, 로그인 상태 관리에 사용할 데이터 전송
             res.status(200).send({
               loginState: true,
-              userInformation: userResult.information,
+              userInformation: {
+                lastConnect: userResult.information.connected_at,
+                id: userResult.information.id,
+                profile: userResult.information.properties.thumbnail_image,
+              },
             });
           } catch (error) {
             res.status(500).json(error);

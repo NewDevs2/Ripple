@@ -20,7 +20,7 @@ const KakaoCallback = () => {
           console.log('서버 응답:', response.data);
           // 유저 정보, 유저 로그인 상태 업데이트
           setLoggedInState(response.data.loginState);
-          setUserInformation(response.data.userInformation.id);
+          setUserInformation(response.data.userInformation);
           navigate('/');
         })
         .catch((error) => {
