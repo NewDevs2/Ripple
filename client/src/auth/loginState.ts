@@ -8,7 +8,7 @@ export const isLoggedInState = atom({
 interface UserInfo {
   id: number;
 }
-export const userInformationState = atom<UserInfo | null>({
+export const userInformationState = atom<number | null>({
   key: 'userInformationState',
   default: null, // 초기값은 사용자 정보 없음
 });

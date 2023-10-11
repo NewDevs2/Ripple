@@ -4,9 +4,6 @@ import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState, userInformationState } from './auth/loginState';
 const Kakao = () : JSX.Element => {
-  interface UserInfo {
-    id: number;
-  }
   // 로그인 상태 관리
   const isLoggedin = useRecoilValue(isLoggedInState);
   const userInformation = useRecoilValue(userInformationState);
